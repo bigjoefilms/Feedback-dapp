@@ -2,6 +2,8 @@ import React, { useEffect,useState } from "react";
 import { ethers } from "ethers";
 import "./App.css";
 import abi from "./utils/WavePortal.json";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const getEthereumObject = () => window.ethereum;
 
@@ -56,6 +58,39 @@ const App = () => {
     }
   };
   getAllWaves()
+  const wave = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        let count = await wavePortalContract.getTotalWaves();
+        console.log("Retrieved total wave count...", count.toNumber());
+
+        /*
+        * Execute the actual wave from your smart contract
+        */
+        const waveTxn = await wavePortalContract.wave();
+        console.log("Mining...", waveTxn.hash);
+
+        await waveTxn.wait();
+        console.log("Mined -- ", waveTxn.hash);
+
+        count = await wavePortalContract.getTotalWaves();
+        console.log("Retrieved total wave count...", count.toNumber());
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      toast.error('Connect wallet', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    }
+  }
+  
   
   useEffect(() => {
     findMetaMaskAccount().then((account) => {
@@ -129,40 +164,11 @@ const App = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
-    const waveTxn = await wavePortalContract.wave(message);
+    wavePortalContract.wave(message);
+
   };
   
-  const wave = async () => {
-    try {
-      const { ethereum } = window;
 
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
-
-        let count = await wavePortalContract.getTotalWaves();
-        console.log("Retrieved total wave count...", count.toNumber());
-
-        /*
-        * Execute the actual wave from your smart contract
-        */
-        const waveTxn = await wavePortalContract.wave();
-        console.log("Mining...", waveTxn.hash);
-
-        await waveTxn.wait();
-        console.log("Mined -- ", waveTxn.hash);
-
-        count = await wavePortalContract.getTotalWaves();
-        console.log("Retrieved total wave count...", count.toNumber());
-      } else {
-        console.log("Ethereum object doesn't exist!");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  
 
   return (
    
@@ -172,11 +178,11 @@ const App = () => {
    <div className="connect">
   
     {!currentAccount ? (
-      <button className="waveButton conect" onClick={null}>
+      <button className=" conect" onClick={null}>
       Connect Wallet
     </button>
       ) : (
-        <button className="waveButton conect" onClick={null}>
+        <button className="conect" onClick={null}>
         Connected
         <span className="address">{address}</span>
       </button>
@@ -201,12 +207,13 @@ const App = () => {
 
         <textarea  value={message} onChange={e => setMessage(e.target.value)} placeholder="Enter your message here" />
 
-        
+       
         </form>
-
         <button className="waveButton" onClick={handleSubmit}>
          Send me a message
         </button>
+
+       
 
         <div className="Log header">
            Message Logs 👀 

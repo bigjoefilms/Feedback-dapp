@@ -4,7 +4,7 @@
         margin: 0;
         padding: 0;
         font-family:  'Poppins', sans-serif;
-        background-color: black;
+        background-color: rgb(15, 14, 14);
         color: aliceblue;
 }
 .mainContainer{
@@ -27,7 +27,7 @@
 .top{
     display: flex;
     align-items: flex-end;
-    justify-content: end;
+    justify-content:flex-end;
 }
 .connect{
     justify-content:center;
@@ -45,6 +45,24 @@
     align-items: center;
     text-align: center;
 
+}
+.conect{
+    margin-top: 50px;
+    border: none;
+    padding: 12px 20px;
+    margin-right: 20px;
+    font-size: 19px;
+    border-radius: 10px;
+    background: linear-gradient(109.6deg, rgb(15, 197, 15) 11.2%, rgb(25, 44, 24) 91.3%);
+    color: white;
+    cursor: pointer;
+}
+.conect:hover{  
+    opacity: 2;
+    scale: 1.03;
+}
+.conect:active{
+    opacity: 0.9;
 }
 .address{
     font-size: 10px;
@@ -64,7 +82,7 @@
     margin-right: 20px;
     font-size: 19px;
     border-radius: 10px;
-    background: linear-gradient(109.6deg, rgb(5, 208, 79) 11.2%, rgb(32, 40, 48) 91.3%);
+    background: linear-gradient(109.6deg, rgb(15, 197, 15) 11.2%, rgb(25, 44, 24) 91.3%);
     color: white;
     cursor: pointer;
 }
@@ -96,7 +114,7 @@
 }
 .Log{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
    margin-top: 100px;
    margin-left: 200px;
    
@@ -104,7 +122,7 @@
 }
 .check{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-left: 200px;
 }
 .message{
@@ -121,13 +139,12 @@
 
 }
 .logs{
-    background-color: black;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    
-    
+    margin-top: 60px;
 }
 .log{
     border: 1px solid white;
@@ -136,6 +153,7 @@
     text-align: start;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 30px;
    
 
 }
