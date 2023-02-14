@@ -145,6 +145,7 @@
     align-items: center;
     flex-direction: column;
     margin-top: 60px;
+    margin-bottom: 50px;
 }
 .log{
     border: 1px solid white;

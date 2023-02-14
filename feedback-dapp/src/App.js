@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from "react";
-import { ethers } from "ethers";
+import {ethers} from "ethers";
 import "./App.css";
 import abi from "./utils/WavePortal.json";
 
@@ -14,6 +14,7 @@ const App = () => {
   const [address, setAddress] = useState('');
   const [allWaves, setAllWaves] = useState([]);
   const [message, setMessage] = useState("");
+  
 
   const contractABI = abi.abi;
 
@@ -88,7 +89,7 @@ const App = () => {
   
   useEffect(() => {
     const contractABI = abi.abi;
-    
+
     findMetaMaskAccount().then((account) => {
       if (account !== null) {
         setCurrentAccount(account);
@@ -229,6 +230,7 @@ const App = () => {
         })}
 
        </div>
+       <div> Made with 👽 by Bigjoe.js</div>
         
       </div>
     </div>
