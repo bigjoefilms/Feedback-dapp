@@ -2,8 +2,7 @@ import React, { useEffect,useState } from "react";
 import { ethers } from "ethers";
 import "./App.css";
 import abi from "./utils/WavePortal.json";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const getEthereumObject = () => window.ethereum;
 
@@ -15,10 +14,6 @@ const App = () => {
   const [address, setAddress] = useState('');
   const [allWaves, setAllWaves] = useState([]);
   const [message, setMessage] = useState("");
-
- 
-
-  
 
   const contractABI = abi.abi;
 
@@ -85,14 +80,15 @@ const App = () => {
         console.log("Ethereum object doesn't exist!");
       }
     } catch (error) {
-      toast.error('Connect wallet', {
-        position: toast.POSITION.TOP_RIGHT
-      });
+      error(error)
     }
   }
+  wave()
   
   
   useEffect(() => {
+    const contractABI = abi.abi;
+    
     findMetaMaskAccount().then((account) => {
       if (account !== null) {
         setCurrentAccount(account);
