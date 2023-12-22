@@ -1,22 +1,17 @@
-const main = async () => {
-    const waveContractFactory = await hre.ethers.getContractFactory("WavePortal");
-    const waveContract = await waveContractFactory.deploy({
-      value: hre.ethers.utils.parseEther("0.001"),
-    });
-  
-    await waveContract.deployed();
-  
-    console.log("WavePortal address: ", waveContract.address);
-  };
-  
-  const runMain = async () => {
-    try {
-      await main();
-      process.exit(0);
-    } catch (error) {
-      console.error(error);
-      process.exit(1);
-    }
-  };
-  
-  runMain();
+
+
+async function main() {
+    const HelloWorld = await ethers.getContractFactory("HelloWorld");
+    const gasPrice = ethers.utils.parseUnits('10', 'gwei'); // Adjust the '10' as needed
+    const gasLimit = 500000; // Adjust this value based on your needs
+    const helloWorld = await HelloWorld.deploy({ gasPrice: gasPrice, gasLimit: gasLimit });
+    await helloWorld.deployed();
+    console.log("HelloWorld deployed to:", helloWorld.address);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
